@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasil Deteksi Penyakit Daun Tebu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            fade: 'fadeIn 1s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-green-50 to-white min-h-screen font-sans text-gray-800 flex flex-col items-center py-10">
+
+  <div class="bg-white shadow-2xl rounded-3xl p-10 w-full max-w-3xl animate-fade text-center">
+    <h1 class="text-4xl font-extrabold text-green-700 mb-4">📊 Hasil Deteksi Penyakit</h1>
+    <p class="text-lg text-gray-600 mb-8">Analisis menggunakan sistem <strong>Hybrid CNN-Fuzzy</strong> berhasil dilakukan:</p>
+
+    <!-- Gambar yang diunggah -->
+    <div class="mb-6">
+      {% if filename %}
+        <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Gambar Daun" class="rounded-xl mx-auto shadow-lg max-h-64 border border-green-200" />
+      {% else %}
+        <p class="text-gray-500">Tidak ada gambar yang diunggah.</p>
+      {% endif %}
+    </div>
+
+    <!-- Hasil prediksi -->
+    <div class="bg-green-100 border border-green-300 rounded-2xl p-6 shadow-md text-left">
+      <h2 class="text-2xl font-bold text-green-800 mb-3">🧠 Hasil Prediksi Sistem:</h2>
+
+      <p class="text-xl font-semibold text-gray-900 mb-2">
+        {% if label == 'sehat' %}
+          🌿 <span class="text-green-600">Daun Sehat</span>
+        {% elif label == 'mosaik' %}
+          🍃 <span class="text-yellow-500">Penyakit Mosaik</span>
+        {% elif label == 'busuk merah' %}
+          🔥 <span class="text-red-600">Penyakit Busuk Merah</span>
+        {% elif label == 'karat' %}
+          🌾 <span class="text-orange-600">Penyakit Karat Daun</span>
+        {% elif label == 'kuning' %}
+          ☀️ <span class="text-yellow-600">Daun Menguning</span>
+        {% else %}
+          🧪 <span class="text-gray-700">Daun Menguning</span>
+        {% endif %}
+      </p>
+
+      <p class="text-base text-gray-700 mb-1">🎯 <strong>Akurasi Prediksi (CNN):</strong> {{ confidence * 100 | round(2) }}%</p>
+      <p class="text-base text-gray-700">📉 <strong>Tingkat Kerusakan (Fuzzy):</strong> {{ damage_level_str }}</p>
+
+      <div class="w-full bg-gray-200 rounded-full h-4 mt-2">
+        <div class="h-4 rounded-full 
+            {% if severity_numeric > 70 %}bg-red-500
+            {% elif severity_numeric > 40 %}bg-yellow-400
+            {% else %}bg-green-500{% endif %}" 
+            style="width: {{ severity_numeric | round(0) }}%;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Deskripsi penyakit dan solusi -->
+    <div class="mt-6 text-left">
+      <h3 class="text-xl font-bold text-green-700 mb-2">📝 Deskripsi Penyakit:</h3>
+      <p class="text-gray-700 mb-4">{{ deskripsi.deskripsi }}</p>
+
+      <h3 class="text-xl font-bold text-green-700 mb-2">✅ Solusi & Pencegahan:</h3>
+      <p class="text-gray-700">{{ deskripsi.solusi }}</p>
+    </div>
+
+    <div class="mt-10">
+      <a href="/" class="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-lg shadow-lg transition">
+        🔄 Coba Gambar Lain
+      </a>
+    </div>
+  </div>
+
+  <footer class="mt-12 text-sm text-gray-600 text-center">
+    &copy; 2025 | Sistem Deteksi Penyakit Daun Tebu oleh <strong>Siti Hotimah</strong>
+  </footer>
+</body>
+</html>

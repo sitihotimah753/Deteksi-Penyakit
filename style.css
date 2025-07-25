@@ -1,0 +1,254 @@
+:root {
+    --primary-color: #4a90e2; /* Biru cerah */
+    --secondary-color: #6a11cb; /* Ungu */
+    --accent-color: #2ecc71; /* Hijau cerah untuk sukses/aksi */
+    --text-dark: #333;
+    --text-light: #f4f4f4;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-dark);
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+}
+
+/* Animasi latar belakang (opsional, untuk sentuhan dinamis) */
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    animation: backgroundMove 20s infinite alternate;
+    z-index: -1;
+}
+
+@keyframes backgroundMove {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.container {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px; /* Sudut lebih membulat */
+    box-shadow: var(--shadow-medium);
+    text-align: center;
+    width: 90%;
+    max-width: 550px; /* Lebih lebar sedikit */
+    backdrop-filter: blur(10px); /* Efek blur pada latar belakang kartu */
+    -webkit-backdrop-filter: blur(10px); /* Dukungan Safari */
+    animation: fadeInScale 0.8s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Sedikit border */
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Spasi antar bagian */
+}
+
+.header .logo {
+    width: 140px; /* Ukuran logo lebih besar */
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-light);
+    border: 3px solid var(--primary-color); /* Border warna primer */
+    transition: transform 0.3s ease;
+}
+
+.header .logo:hover {
+    transform: scale(1.05);
+}
+
+.header h1 {
+    font-size: 2.5em; /* Ukuran judul lebih besar */
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.header p {
+    font-size: 1.15em;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.upload-section p.upload-text {
+    font-size: 1.3em;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.file-input-wrapper {
+    position: relative;
+    display: flex; /* Menggunakan flexbox untuk penataan */
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Spasi antar label dan nama file */
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Agar responsif pada layar kecil */
+}
+
+.file-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.file-label {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 14px 30px; /* Padding lebih besar */
+    border-radius: 10px; /* Sudut lebih membulat */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-flex; /* Untuk ikon dan teks sebaris */
+    align-items: center;
+    gap: 10px; /* Spasi antara ikon dan teks */
+    font-weight: 600;
+    box-shadow: var(--shadow-light);
+}
+
+.file-label:hover {
+    background-color: #3a7bd5; /* Sedikit lebih gelap */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.file-label:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-light);
+}
+
+.file-name {
+    display: block;
+    font-size: 1.05em;
+    color: #777;
+    font-style: italic;
+    flex-basis: 100%; /* Agar nama file di baris baru di bawah tombol */
+    margin-top: 10px;
+}
+
+.predict-button {
+    background-color: var(--accent-color); /* Warna hijau cerah */
+    color: white;
+    border: none;
+    padding: 16px 40px; /* Padding lebih besar */
+    border-radius: 10px;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: 700;
+    box-shadow: var(--shadow-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.predict-button:hover:not(:disabled) {
+    background-color: #27ae60; /* Sedikit lebih gelap */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.predict-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-medium);
+}
+
+.predict-button:disabled {
+    background-color: #cccccc; /* Warna abu-abu saat dinonaktifkan */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+        max-width: 450px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    .header p {
+        font-size: 1em;
+    }
+
+    .upload-section p.upload-text {
+        font-size: 1.2em;
+    }
+
+    .file-label, .predict-button {
+        font-size: 1.1em;
+        padding: 12px 25px;
+    }
+
+    .file-input-wrapper {
+        flex-direction: column; /* Ubah ke kolom pada layar kecil */
+        gap: 10px;
+    }
+
+    .file-name {
+        margin-top: 5px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .header .logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .header p {
+        font-size: 0.9em;
+    }
+
+    .file-label, .predict-button {
+        font-size: 1em;
+        padding: 10px 20px;
+        width: 100%; /* Lebar penuh */
+        box-sizing: border-box; /* Pastikan padding tidak membuat overflow */
+    }
+
+    .predict-button {
+        margin-top: 15px;
+    }
+}
